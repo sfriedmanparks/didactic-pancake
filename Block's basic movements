@@ -1,0 +1,45 @@
+float x_block=20;
+float y_block=700;
+float ground=700;
+float falling = 0;
+
+void setup(){
+    background(255,255,255);
+    size(750, 750);
+}
+    
+void draw(){
+    background(255, 255, 255);
+    fill(0, 0, 0);
+    if(keyPressed == false){
+      falling = 0;
+      y_block = ground;
+    }
+    keyPressed();
+    rect(x_block,(y_block+falling), 50, 50); // coordinates of our block
+
+}
+
+void keyPressed(){
+ if(key==CODED){
+  if(keyCode == LEFT && 0<x_block){ //left arrow: go left
+      x_block -= 5;
+   }
+  if(keyCode == RIGHT){ //right arrow: go right
+      x_block += 5;
+   }
+  if(keyCode == UP && 0<y_block){ //up arrow: jump
+   if (falling == -130){ //before the peak, go down a tiny bit
+    falling += 5;
+   }
+   if (falling <= -150){ //if in the air, then go down and right
+    x_block += 10;
+    falling += 10;
+    x_block += 10;
+   }
+   else{ //going up
+     falling -= 20;
+   }
+  }
+ }
+}
