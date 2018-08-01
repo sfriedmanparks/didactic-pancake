@@ -1,0 +1,73 @@
+float x_block=20;
+float y_block=450;
+float ground=450;
+float falling = 0;
+float trix1 = 200;
+float trix3 = trix1+50;
+float trix2 = (trix1 + trix3)/2;
+float tritop = 50;
+int screen = 0;
+
+void setup(){
+    size(1080, 500);
+}
+    
+void draw(){
+  if (screen==0){ //game screen
+   background(255, 255, 255);
+    fill(0, 0, 0);
+    if(keyPressed == false){
+      falling = 0;
+      y_block = ground;
+      x_block += 1;
+    }
+    keyPressed();
+    rect(x_block,(y_block+falling), 50, 50); // coordinates of our block
+    obstacles();
+  }
+  
+  if(screen==1){ //losing screen
+    background(255);
+    fill(0);
+    textSize(24);
+    String a = "You weren't able to make it past this obstacle, and woke up in an emergency room. The next morning, you were admited into Ingalls Memorial Hospital's Inpatient Psychiatry Care. After being discharged, you were set up with a therapist. And now, even though every day is battle to keep yourself alive, you keep fighting. (Press ENTER)";
+    text(a, 360, 265, 700, 470);
+    if(keyCode == ENTER){
+      screen=0;
+      x_block = 20;
+      y_block = 450;
+    }
+  }
+}
+void keyPressed(){
+ if(key==CODED){
+  if(keyCode == LEFT && 0<x_block){ //left arrow: go left
+      x_block -= 5;
+   }
+  if(keyCode == RIGHT){ //right arrow: go right
+      x_block += 5;
+   }
+  if(keyCode == UP && 0<=y_block){ //up arrow: jump
+   if (falling == -130){ //before the peak, go down a tiny bit
+    falling += 5;
+   }
+   if (falling <= -150){ //if in the air, then go down and right
+    x_block += 10;
+    falling += 10;
+    x_block += 10;
+   }
+   else{ //going up
+     falling -= 20;
+   }
+  }
+ }
+}
+
+void obstacles(){
+  fill(244, 191, 66);
+  noStroke();
+  triangle(trix1, ground+50, trix2, ground-tritop, trix3, ground+50); //obstacle
+  if((x_block+50)==trix1 || x_block==trix3){ //if hit, go to losing screen
+    screen = 1;
+  }
+} 
