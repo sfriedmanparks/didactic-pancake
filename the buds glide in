@@ -1,0 +1,66 @@
+//some global variables
+int x = 1900;
+int y = 450;
+int l = 50;
+int h = 60;
+ArrayList<buds> triangles = new ArrayList<buds>();
+
+void setup(){
+  size(1880,720); //screen size
+}
+
+void draw(){
+  background(255, 255, 255); //resets the background to white
+    glide();
+}
+
+void glide(){
+
+//calls the functions to make new triangles
+  if(frameCount % 10 == 3){
+    triangles.add(new buds(x, y, h, l));
+  }
+  for (int i = 0; i < triangles.size(); i++){
+     if(triangles.get(i) != null){
+       triangles.get(i).display();
+       triangles.get(i).update();
+     }
+  }
+}
+
+class buds{
+  int x; //x-coordinate of bottom left vertex
+  int y; //y-coordinate of bottom left vertex
+  int h; //height
+  int l; //length
+  color c;
+  
+  buds(int x1,int y1, int h1, int l1){
+    x=x1;
+    y=y1;
+    h=h1;
+    l=l1;
+    int shade=int(random(1,4));{ 
+  
+    if (shade==1){
+      c=color(66, 134, 244);
+    }
+    if (shade==2){
+      c=color(101, 244, 65);
+    }
+    if (shade==3){
+      c=color(175, 65, 244);
+    }
+    }
+    }
+  
+  void display() { //function that makes a triangle
+    fill(c);
+    triangle(x,y,x+(l/2),y-h,x+l,y);
+  }
+    
+  void update(){ //moves the triangle
+    x -= 5;
+  }
+   
+}
