@@ -62,5 +62,4 @@ class buds{
   void update(){ //moves the triangle
     x -= 5;
   }
-   
 }
