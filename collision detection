@@ -1,0 +1,53 @@
+
+void draw() {
+  if (screen==0){//game screen
+      int ex = frameCount % img.width;
+  copy(img, ex, 0, img.width, height, 0, 0, img.width, height);
+  int ex2 = img.width - ex;
+  if (ex2 < width) {
+    copy(img, 0, 0, img.width, height, ex2, 0, img.width, height);
+  }
+keyTyped();
+obstacles1();
+obstacles2();
+obstacles3();
+  }
+      
+  playerInput();
+  blockUpdate();
+  playerUpdate();
+
+  if(screen==1){ //losing screen
+    background(amb);
+    if(keys[ENTER]){ 
+      px=20;
+      py=100;
+      screen=0;
+    }}
+  }
+void obstacles1(){
+  fill(244, 191, 66);
+  noStroke();
+  triangle(750, 331, 762.5, 239, 775, 331); //obstacle
+  if(750<=px+50 && px<=775 && 239<=py && py<=331){ //if hit, go to losing screen
+    screen = 1;
+  }
+} 
+
+void obstacles2(){
+  fill(244, 191, 66);
+  noStroke();
+  triangle(1230, 650, 1250, 500, 1270, 650); //obstacle
+  if(1230<=px+50 && px<=1270 && 500<=py && py<=650){ //if hit, go to losing screen
+    screen = 1;
+  }
+} 
+
+void obstacles3(){
+  fill(244, 191, 66);
+  noStroke();
+  triangle(1760, 602, 1772.5, 537, 1785, 602); //obstacle
+  if(1760<=px+50 && px<=1785 && 537<=py && py<=602){ //if hit, go to losing screen
+    screen = 1;
+  }
+} 
